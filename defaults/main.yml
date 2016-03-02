@@ -1,2 +1,7 @@
 ---
-# defaults file for hbase_configure
+
+hbase_cfg_path: /opt/hbase/conf
+hbase_clear_configs: []
+
+hbase_site: {}
+hbase_policy: {}

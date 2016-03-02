@@ -1,2 +1,27 @@
 ---
-# tasks file for hbase_configure
+
+- name: ensure configuration directory exists
+  file:
+    path: "{{ hbase_cfg_path }}"
+    state: directory
+
+- name: clear configuration
+  copy:
+    src: empty-site.xml
+    dest: "{{ hbase_cfg_path }}/{{ item }}"
+  with_items: "{{ hbase_clear_configs }}"
+
+- name: configure hbase-site.xml
+  lineinfile:
+    dest: "{{ hbase_cfg_path }}/hbase-site.xml"
+    insertbefore: "</configuration>"
+    line: "  <property>\n    <name>{{ item.key }}</name>\n    <value>{{ item.value }}</value>\n  </property>\n"
+  with_dict: "{{ hbase_site }}"
+
+- name: configure hbase-policy.xml
+  lineinfile:
+    dest: "{{ hbase_cfg_path }}/hbase-policy.xml"
+    insertbefore: "</configuration>"
+    line: "  <property>\n    <name>{{ item.key }}</name>\n    <value>{{ item.value }}</value>\n  </property>\n"
+  with_dict: "{{ hbase_policy }}"
+
