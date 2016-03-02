@@ -2,6 +2,9 @@
 
 hbase_cfg_path: /opt/hbase/conf
 hbase_clear_configs: []
+hbase_log_dir: "{{ hbase_cfg_path }}/logs"
+hbase_user: hadoop
+hbase_group: hadoop
 
 hbase_site: {}
 hbase_policy: {}
